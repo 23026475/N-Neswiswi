@@ -21,13 +21,19 @@ export default function Navbar() {
   const logoSrc = theme === "dark" ? "/media/logo/NN_Dark.png" : "/media/logo/NN_Light.png";
 
   return (
-    <header className="flex justify-between items-center px-8 py-4 sticky top-0 z-50 backdrop-blur bg-background/70 border-b border-border">
-      <img src={logoSrc} alt="NN Logo" className="h-14 w-auto" />
+    <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-8 py-4 sm:py-4 sticky top-0 z-50 backdrop-blur bg-background/70 border-b border-border">
+      {/* Logo */}
+      <div className="mb-2 sm:mb-0">
+        <img src={logoSrc} alt="NN Logo" className="h-12 sm:h-14 w-auto" />
+      </div>
 
+      {/* Navigation Menu */}
       <NavigationMenu>
-        <NavigationMenuList className="flex gap-4">
+        <NavigationMenuList className="flex flex-col sm:flex-row gap-2 sm:gap-4">
           <NavigationMenuItem>
-            <Button variant="ghost" asChild><a href="/">Home</a></Button>
+            <Button variant="ghost" asChild>
+              <a href="/">Home</a>
+            </Button>
           </NavigationMenuItem>
 
           <NavigationMenuItem>
@@ -39,12 +45,17 @@ export default function Navbar() {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <Button variant="ghost" asChild><a href="#contact">Contact</a></Button>
+            <Button variant="ghost" asChild>
+              <a href="#contact">Contact</a>
+            </Button>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 
-      <ThemeSwitcher theme={theme} setTheme={setTheme} />
+      {/* Theme Switcher */}
+      <div className="mt-2 sm:mt-0">
+        <ThemeSwitcher theme={theme} setTheme={setTheme} />
+      </div>
     </header>
   );
 }
