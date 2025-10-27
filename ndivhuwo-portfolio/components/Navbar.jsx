@@ -1,13 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger, NavigationMenuContent } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 export default function Navbar() {
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const logoSrc = theme === "dark" ? "/media/logo/NN_Dark.png" : "/media/logo/NN_Light.png";
+
   return (
     <header className="flex justify-between items-center px-8 py-4 sticky top-0 z-50 backdrop-blur bg-background/70 border-b border-border">
-      <h1 className="font-bold text-xl">Ndivhuwo Neswiswi</h1>
+      <img src={logoSrc} alt="NN Logo" className="h-14 w-auto" />
 
       <NavigationMenu>
         <NavigationMenuList className="flex gap-4">
@@ -29,7 +44,7 @@ export default function Navbar() {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <ThemeSwitcher />
+      <ThemeSwitcher theme={theme} setTheme={setTheme} />
     </header>
   );
 }
