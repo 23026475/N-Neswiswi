@@ -20,17 +20,33 @@ export default function Navbar() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const logoSrc =
+  // Desktop logos
+  const logoDesktop =
     theme === "dark"
       ? "/media/logo/NN_Dark.png"
       : "/media/logo/NN_Light.png";
 
+  // Mobile logos
+  const logoMobile =
+    theme === "dark"
+      ? "/media/logo/NNeswiswi_dk_md.png"
+      : "/media/logo/NNeswiswi_lt_md.png";
+
   return (
     <header className="sticky top-0 z-50 backdrop-blur bg-background/70 border-b border-border px-4 sm:px-8 py-4">
       <div className="flex justify-between items-center">
-        {/* Logo */}
+        {/* Logo: swap based on screen size */}
         <div className="flex-shrink-0">
-          <img src={logoSrc} alt="NN Logo" className="h-12 sm:h-14 w-auto" />
+          <img
+            src={logoMobile} // mobile first
+            alt="NN Logo"
+            className="h-10 sm:h-14 w-auto sm:hidden"
+          />
+          <img
+            src={logoDesktop} // desktop
+            alt="NN Logo"
+            className="hidden sm:block h-12 sm:h-14 w-auto"
+          />
         </div>
 
         {/* Desktop nav links */}
