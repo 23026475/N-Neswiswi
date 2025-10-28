@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
-import meCir from "@/public/media/murals/me_cir.png";
+import meCir from "@/public/media/murals/me.jpeg";
+import Timeline from "@/components/Timeline";
 
-// Import certification images
+// Certification Images
 import az900Img from "@/public/media/certs/az900.png";
 import ai900Img from "@/public/media/certs/ai900.png";
 import pl900Img from "@/public/media/certs/pl900.png";
@@ -27,104 +28,71 @@ export default function AboutPage() {
     "💡 Continuous Learning",
   ];
 
-  const journey = [
-    {
-      title: "🎓 Wits University",
-      desc: "Studied Computer Science & Mathematics (2019–2022). Built a foundation in algorithms and programming.",
-    },
-    {
-      title: "👩‍💻 GirlCode",
-      desc: "Completed a System Development Learnership (2024–2025) focused on C#, .NET, SQL & Power Platform.",
-    },
-    {
-      title: "💼 Mint Group",
-      desc: "Currently interning as a System Developer. Building Power Apps, Power Automate flows, and Azure solutions.",
-    },
-  ];
-
   return (
-    <main className="px-8 py-20 max-w-5xl mx-auto">
-      {/* Hero Section */}
-      <section className="text-center mb-16">
+    <main className="px-6 md:px-10 py-24 max-w-6xl mx-auto space-y-24">
+      {/* ================= HERO SECTION ================= */}
+      <section className="text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          className="space-y-4"
         >
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center">
             <motion.div whileHover={{ scale: 1.05 }}>
               <Image
                 src={meCir}
                 alt="Ndivhuwo Neswiswi"
-                width={140}
-                height={140}
+                width={150}
+                height={150}
                 className="rounded-full shadow-xl ring-4 ring-primary/20"
               />
             </motion.div>
           </div>
 
-          <h1 className="text-4xl font-bold mb-2">About Me</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Hi, I’m <strong>Ndivhuwo Neswiswi</strong>, a system developer passionate about
-            crafting practical, creative solutions across web and Microsoft ecosystems.
-          </p>
-          <p className="text-sm text-muted-foreground mt-2 italic">
-            Building practical solutions, one line of code at a time.
-          </p>
+          <div className="space-y-2">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+              About Me
+            </h1>
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Hi, I’m <strong>Ndivhuwo Neswiswi</strong>, a System Developer passionate about crafting practical, creative solutions across web and Microsoft ecosystems.
+            </p>
+            <p className="text-sm md:text-base text-muted-foreground italic">
+              “Building practical solutions, one line of code at a time.”
+            </p>
+          </div>
         </motion.div>
       </section>
 
       <Separator className="my-10" />
 
-      {/* Journey Section */}
-      <section className="mb-16">
+      {/* ================= JOURNEY / TIMELINE ================= */}
+      <section>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-2xl font-semibold mb-6 text-center"
+          className="text-3xl font-semibold mb-12 text-center tracking-tight"
         >
           My Journey
         </motion.h2>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {journey.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-            >
-              <Card className="border-primary/20 hover:shadow-lg transition">
-                <CardContent className="p-5">
-                  <h3 className="font-semibold text-lg">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-2">{item.desc}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+        <Timeline />
       </section>
 
       <Separator className="my-10" />
 
-      {/* Skills & Certifications */}
-      <section className="mb-16 text-center">
+      {/* ================= SKILLS & CERTIFICATIONS ================= */}
+      <section className="text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-2xl font-semibold mb-6"
+          className="text-3xl font-semibold mb-12 tracking-tight"
         >
           Skills & Certifications
         </motion.h2>
 
-        <motion.div className="mb-10">
-          {/* YourSkills component can go here */}
-        </motion.div>
-
-        <div className="grid md:grid-cols-4 gap-6 justify-center items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center">
           {certifications.map((cert, i) => (
             <motion.div
               key={i}
@@ -133,16 +101,18 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
-              <Card className="border-primary/20 hover:shadow-lg transition">
-                <CardContent className="p-4 flex flex-col items-center gap-3">
+              <Card className="border-primary/20 hover:shadow-lg transition rounded-xl">
+                <CardContent className="p-6 flex flex-col items-center gap-3">
                   <Image
                     src={cert.img}
                     alt={cert.name}
-                    width={80}
-                    height={80}
+                    width={90}
+                    height={90}
                     className="rounded-md"
                   />
-                  <p className="text-sm font-medium text-center">{cert.name}</p>
+                  <p className="text-sm font-medium text-center leading-snug">
+                    {cert.name}
+                  </p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -152,13 +122,13 @@ export default function AboutPage() {
 
       <Separator className="my-10" />
 
-      {/* Interests & Values */}
-      <section className="text-center mb-16">
+      {/* ================= BEYOND CODE / INTERESTS ================= */}
+      <section className="text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-2xl font-semibold mb-6"
+          className="text-3xl font-semibold mb-8 tracking-tight"
         >
           Beyond Code
         </motion.h2>
@@ -167,13 +137,13 @@ export default function AboutPage() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-muted-foreground max-w-2xl mx-auto mb-6"
+          className="text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          When I’m not coding, I enjoy learning about AI-driven tools, exploring cloud architectures, and mentoring aspiring developers.
+          When I’m not coding, I enjoy exploring AI-driven tools, cloud architectures, and mentoring aspiring developers.  
           I believe technology should empower people — not complicate their lives.
         </motion.p>
 
-        <div className="flex justify-center gap-4 flex-wrap text-sm">
+        <div className="flex justify-center gap-3 flex-wrap">
           {interests.map((item, i) => (
             <motion.span
               key={i}
@@ -181,7 +151,7 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-primary/10 px-3 py-1 rounded-full"
+              className="bg-primary/10 text-sm px-4 py-2 rounded-full font-medium"
             >
               {item}
             </motion.span>
