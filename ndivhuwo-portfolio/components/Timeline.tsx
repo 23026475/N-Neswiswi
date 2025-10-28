@@ -14,38 +14,38 @@ interface TimelineItem {
   year: string;
   title: string;
   desc: string;
-  img: any; // imported static image
+  img: any;
 }
 
 const timeline: TimelineItem[] = [
   {
     year: "2016–2018",
     title: "🎖 Lekwa Shandu Secondary School",
-    desc: "Represented South Africa in the Eskom Expo for Young Scientists, earning regional and international medals for environmental innovation.",
+    desc: "Where curiosity met innovation. Represented South Africa at the Eskom Expo for Young Scientists, earning regional and international medals for projects focused on environmental sustainability and marine pollution.",
     img: schoolImg,
   },
   {
     year: "2019–2022",
     title: "🎓 University of the Witwatersrand",
-    desc: "Studied Computer Science & Mathematics, focusing on programming, algorithms, and problem-solving foundations.",
+    desc: "Developed a love for logic and technology while studying Computer Science and Mathematics. Learned the foundations of programming, algorithms, and computational problem-solving — the spark that led to a career in development.",
     img: universityImg,
   },
   {
     year: "2024–2025",
     title: "👩‍💻 GirlCode Learnership",
-    desc: "Completed an NQF Level 5 System Development Learnership focused on C#, .NET, SQL, and Microsoft Power Platform development.",
+    desc: "Joined a vibrant tech community through the GirlCode System Development Learnership. Gained hands-on experience with C#, .NET, SQL, React, and Power Platform — and learned how collaboration, creativity, and innovation shape great software.",
     img: girlcodeImg,
   },
   {
     year: "2025–Present",
     title: "💼 Mint Group Internship",
-    desc: "Working as a System Developer Intern on Power Apps, Power Automate, and Azure projects within agile teams, contributing to enterprise solutions.",
+    desc: "Now contributing to real-world projects as a System Developer Intern. Building Power Apps, Power Automate workflows, and cloud-based solutions within agile teams — growing into a well-rounded developer who builds with purpose.",
     img: mintgroupImg,
   },
   {
     year: "Future",
     title: "🚀 Vision Ahead",
-    desc: "Aspiring to become a full-fledged Software Developer creating meaningful, scalable, cloud-powered applications that make a difference.",
+    desc: "Continuing to learn, explore, and innovate. Aspiring to become a full-fledged Software Developer who builds scalable, meaningful, cloud-powered applications that empower people and create impact.",
     img: futureImg,
   },
 ];
@@ -53,6 +53,7 @@ const timeline: TimelineItem[] = [
 export default function Timeline() {
   return (
     <section className="relative py-20 max-w-4xl mx-auto">
+      {/* vertical line */}
       <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-1 bg-primary/30 h-full rounded-full"></div>
 
       <div className="space-y-16 relative z-10">
@@ -65,10 +66,10 @@ export default function Timeline() {
             transition={{ duration: 0.6, delay: i * 0.15 }}
             className="relative flex flex-col md:flex-row items-center md:items-start gap-6"
           >
-            {/* Line Dot */}
+            {/* Dot */}
             <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-background shadow-md"></div>
 
-            {/* Content Card */}
+            {/* Card */}
             <div
               className={`md:w-[46%] ${
                 i % 2 === 0 ? "md:ml-auto md:pl-10" : "md:mr-auto md:pr-10"
@@ -76,20 +77,20 @@ export default function Timeline() {
             >
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="bg-card border border-primary/20 rounded-xl shadow-lg overflow-hidden"
+                className="bg-card border border-primary/20 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
               >
                 <div className="relative h-48 w-full">
                   <Image
                     src={item.img}
                     alt={item.title}
                     fill
-                    className="object-cover opacity-80"
-                    priority={i === 0} // preload first image
+                    className="object-cover opacity-85"
+                    priority={i === 0}
                   />
                 </div>
 
                 <div className="p-6">
-                  <h3 className="font-semibold text-lg text-primary mb-1">
+                  <h3 className="font-semibold text-lg text-primary mb-1 tracking-tight">
                     {item.year}
                   </h3>
                   <h4 className="font-bold text-xl mb-2">{item.title}</h4>
@@ -102,6 +103,22 @@ export default function Timeline() {
           </motion.div>
         ))}
       </div>
+
+      {/* closing message */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="mt-20 text-center max-w-2xl mx-auto text-muted-foreground"
+      >
+        <p>
+          Every milestone represents a step forward — from early curiosity and
+          academic exploration to hands-on development and real-world impact.
+          My journey is built on learning, collaboration, and a deep passion for
+          turning ideas into functional, scalable solutions.
+        </p>
+      </motion.div>
     </section>
   );
 }
