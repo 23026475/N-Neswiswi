@@ -1,32 +1,88 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+"use client";
 
-export default function ProjectCard({ title, description, image, tech, demoLink, githubLink }) {
+import { Card } from "@/components/ui/card";
+import { motion } from "framer-motion";
+
+export default function ProjectCard({
+  title,
+  description,
+  image,
+  tech,
+  demoLink,
+  githubLink,
+}) {
   return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <Card className="cursor-pointer hover:shadow-lg transition-shadow duration-300">
-          <img src={image} alt={title} className="h-48 w-full object-cover rounded-t-lg" />
-          <CardContent className="p-4">
-            <h3 className="font-semibold">{title}</h3>
-            <p className="text-sm text-muted-foreground">{description}</p>
-          </CardContent>
-        </Card>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-64">
-        <div className="flex flex-col gap-2">
-          <p className="text-sm">{description}</p>
-          <div className="flex flex-wrap gap-1">
-            {tech.map((t) => (
-              <span key={t} className="text-xs bg-muted rounded-full px-2 py-1">{t}</span>
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      className="relative rounded-xl overflow-hidden group cursor-pointer shadow"
+    >
+      <Card className="border-0 rounded-xl overflow-hidden">
+        {/* Project Image */}
+        <div className="relative h-48 w-full">
+          <img
+            src={image}
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        </div>
+
+        {/* Title & Preview (Visible Before Hover) */}
+        <div className="p-4">
+          <h3 className="font-semibold text-lg">{title}</h3>
+          <p className="text-sm text-muted-foreground line-clamp-2">
+            {description}
+          </p>
+        </div>
+
+        {/* Hover Overlay */}
+        <div
+          className="
+            absolute inset-0 bg-black/70 opacity-0 
+            group-hover:opacity-100 transition-opacity duration-300
+            p-4 flex flex-col justify-end
+          "
+        >
+          {/* Title */}
+          <h3 className="text-white font-semibold text-lg">{title}</h3>
+
+          {/* Description */}
+          <p className="text-gray-200 text-sm mt-1">{description}</p>
+
+          {/* Tech Chips */}
+          <div className="flex flex-wrap gap-1 mt-3">
+            {tech?.map((t) => (
+              <span
+                key={t}
+                className="px-2 py-1 text-xs bg-white/20 text-white rounded-full"
+              >
+                {t}
+              </span>
             ))}
           </div>
-          <div className="flex gap-4 mt-2">
-            {demoLink && <a href={demoLink} target="_blank" className="text-primary hover:underline">Demo</a>}
-            {githubLink && <a href={githubLink} target="_blank" className="text-primary hover:underline">GitHub</a>}
+
+          {/* Links */}
+          <div className="flex gap-4 mt-4">
+            {demoLink && (
+              <a
+                href={demoLink}
+                target="_blank"
+                className="text-white text-sm underline"
+              >
+                Demo
+              </a>
+            )}
+            {githubLink && (
+              <a
+                href={githubLink}
+                target="_blank"
+                className="text-white text-sm underline"
+              >
+                GitHub
+              </a>
+            )}
           </div>
         </div>
-      </HoverCardContent>
-    </HoverCard>
+      </Card>
+    </motion.div>
   );
 }
