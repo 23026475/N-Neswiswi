@@ -4,22 +4,23 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-export type Slide ={
+export type Slide = {
   title: string;
   subtitle?: string;
   thumbnail: string;
   tech?: string[];
   demoUrl?: string;
   githubUrl?: string;
-}
+};
 
-type HeroSlideshowProps ={
+type HeroSlideshowProps = {
   slides: Slide[];
   interval?: number;
-}
+};
 
 export default function HeroSlideshow({ slides = [], interval = 5000 }: HeroSlideshowProps) {
   const [index, setIndex] = useState(0);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,102 +30,70 @@ export default function HeroSlideshow({ slides = [], interval = 5000 }: HeroSlid
   }, [slides.length, interval]);
 
   const current = slides[index];
-
   if (!current) return null;
 
   return (
-    <section className="relative h-[70vh] w-full overflow-hidden rounded-2xl mb-12">
-      {/* Background slideshow */}
-      <div className="absolute inset-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={current.thumbnail}
-              alt={current.title}
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Foreground content */}
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
-        <motion.h1
-          key={current.title}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-white mb-4"
+    <section
+      className="relative w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden flex"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Main Slide */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={index}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0"
         >
-          {current.title}
-        </motion.h1>
-
-        {current.subtitle && (
-          <motion.p
-            key={current.subtitle}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-lg md:text-xl text-gray-200 max-w-2xl mb-6"
-          >
-            {current.subtitle}
-          </motion.p>
-        )}
-
-        {/* Tech stack badges */}
-        <div className="flex flex-wrap justify-center gap-2 mb-6">
-          {current.tech?.map((t, i) => (
-            <span
-              key={i}
-              className="px-3 py-1 text-sm bg-white/10 border border-white/20 text-white rounded-full"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex gap-4">
-          {current.demoUrl && (
-            <a
-              href={current.demoUrl}
-              target="_blank"
-              className="px-5 py-2 bg-white text-black font-semibold rounded-xl shadow hover:bg-gray-200 transition"
-            >
-              View Demo
-            </a>
-          )}
-          {current.githubUrl && (
-            <a
-              href={current.githubUrl}
-              target="_blank"
-              className="px-5 py-2 bg-black/40 border border-white/30 text-white font-semibold rounded-xl hover:bg-black/60 transition"
-            >
-              GitHub
-            </a>
-          )}
-        </div>
-      </div>
-
-      {/* Slide Indicators */}
-      <div className="absolute bottom-6 flex justify-center gap-2 w-full z-20">
-        {slides.map((_, i) => (
+          <Image src={current.thumbnail} alt={current.title} fill className="object-cover" />
           <div
-            key={i}
-            className={`h-2 w-2 rounded-full transition-all duration-300 ${
-              i === index ? "bg-white w-6" : "bg-white/40"
+            className={`absolute inset-0 bg-black transition-opacity duration-500 ${
+              hovered ? "bg-black/50" : "bg-transparent"
             }`}
           ></div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Side Thumbnails */}
+      <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-20">
+        {slides.map((s, i) => (
+          <div
+            key={i}
+            className={`relative w-16 h-16 rounded-xl overflow-hidden cursor-pointer border-2 transition-all ${
+              i === index ? "border-white w-20 h-20" : "border-white/30"
+            }`}
+            onClick={() => setIndex(i)}
+          >
+            <Image src={s.thumbnail} alt={s.title} fill className="object-cover" />
+            <div
+              className={`absolute inset-0 flex items-end justify-center text-center p-1 bg-black/50 text-white text-xs rounded-b-xl transition-opacity duration-300 ${
+                hovered || i === index ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {s.title}
+            </div>
+          </div>
         ))}
+      </div>
+
+      {/* Slide Info */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center px-4 z-20 transition-opacity duration-500">
+        {hovered && (
+          <>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{current.title}</h2>
+            {current.subtitle && <p className="text-md md:text-lg text-gray-200 max-w-2xl">{current.subtitle}</p>}
+            <div className="flex flex-wrap justify-center gap-2 mt-3">
+              {current.tech?.map((t, idx) => (
+                <span key={idx} className="px-3 py-1 text-sm bg-white/20 border border-white/30 text-white rounded-full">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

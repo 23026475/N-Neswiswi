@@ -31,13 +31,8 @@ export default function ProjectsGrid({ projects }: Props) {
 
   return (
     <>
-      <ProjectFilters
-        selected={selectedFilter}
-        setSelected={setSelectedFilter}
-        disabled={!projects || projects.length === 0}
-      />
-
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-6">
+    
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-2 px-8 py-4">
         {projects.length > 0 ? (
           filteredProjects.map((project) => (
             <ProjectCard
