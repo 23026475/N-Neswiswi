@@ -7,7 +7,7 @@ const apiVersion = "v2025-10-28";
  * Fetch data from Sanity using a GROQ query
  * @param groqQuery - The GROQ query string
  */
-export async function fetchSanityData(groqQuery: string) {
+export async function fetchSanityData<T>(groqQuery: string): Promise<T | null> {
   try {
     const encodedQuery = encodeURIComponent(groqQuery);
     const url = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${encodedQuery}`;
@@ -18,7 +18,7 @@ export async function fetchSanityData(groqQuery: string) {
     }
 
     const data = await res.json();
-    return data.result;
+    return data.result as T;
   } catch (error) {
     console.error("Error fetching Sanity data:", error);
     return null;
