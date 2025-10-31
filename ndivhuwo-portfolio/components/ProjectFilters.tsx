@@ -13,7 +13,7 @@ interface ProjectFiltersProps {
 
 export default function ProjectFilters({ selected, setSelected, disabled = false }: ProjectFiltersProps) {
   return (
-    <ScrollArea className="py-2">
+    <ScrollArea className="py-2 px-6 w-full border-b mb-6">
       <div className="flex gap-2">
         {techFilters.map((tech) => (
           <button
