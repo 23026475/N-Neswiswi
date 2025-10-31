@@ -17,10 +17,7 @@ export default function BlogContent({ posts }: Props) {
         transition={{ duration: 0.6 }}
         className="text-center"
       >
-        <h1 className="text-4xl md:text-5xl font-bold mb-2">Blog</h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Read my latest posts, tutorials, and project updates.
-        </p>
+
       </motion.div>
 
       <div className="grid gap-8 md:grid-cols-2">
