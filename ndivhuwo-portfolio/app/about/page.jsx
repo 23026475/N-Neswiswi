@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import SubtleBackground from "@/components/SubtleBackground";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Code2,
@@ -110,6 +111,8 @@ export default function AboutPage() {
             </motion.div>
           </div>
 
+        {/* Subtle Background */}
+        <SubtleBackground />
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mt-6">
             Hi, I’m <span className="text-primary">Ndivhuwo Neswiswi</span>
           </h1>
