@@ -120,3 +120,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Slow spin */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-slow-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Slow pulse for subtle scaling */
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); opacity: 0.1; }
+  50% { transform: scale(1.05); opacity: 0.15; }
+}
+
+/* Apply classes */
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 80s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 15s ease-in-out infinite;
+}
