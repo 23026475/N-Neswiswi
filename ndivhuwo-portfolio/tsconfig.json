@@ -30,7 +30,7 @@
     "typeRoots": [
       "./node_modules/@types",
       "./types"
-    ] // ✅ add this
+    ] 
   },
   "include": [
     "next-env.d.ts",
@@ -39,11 +39,11 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "types/**/*.d.ts" // ✅ include our custom types folder
+    "types/**/*.d.ts" 
     ,
     ".next\\dev/types/**/*.ts",
     ".next\\dev/types/**/*.ts"
-  ],
+, "components/AboutSkills.jsx"  ],
   "exclude": [
     "node_modules"
   ]
