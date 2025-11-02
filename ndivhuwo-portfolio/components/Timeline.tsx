@@ -52,19 +52,26 @@ const timeline: TimelineItem[] = [
 
 export default function Timeline() {
   return (
-    <section className="relative py-20 max-w-4xl mx-auto">
-      {/* vertical line */}
-      <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-1 bg-primary/30 h-full rounded-full"></div>
+    <section className="relative py-20 max-w-5xl mx-auto px-4 md:px-0 text-center">
+      <h2 className="text-3xl font-semibold text-primary tracking-tight">
+          My journey to becoming a Fullstack Developer
+        </h2>
+        {/* Separator */}
+      <div className="border-t border-primary/20 my-12" />
+      {/* Timeline */}
+      <div className="relative z-10">
+        {/* vertical line container */}
+        <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-1 bg-primary/30 rounded-full"
+             style={{ top: 0, bottom: 0 }} />
 
-      <div className="space-y-16 relative z-10">
         {timeline.map((item, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.15 }}
-            className="relative flex flex-col md:flex-row items-center md:items-start gap-6"
+            className="relative flex flex-col md:flex-row items-center md:items-start gap-6 mb-20 last:mb-0"
           >
             {/* Dot */}
             <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-background shadow-md"></div>
@@ -76,15 +83,15 @@ export default function Timeline() {
               }`}
             >
               <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="bg-card border border-primary/20 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
+                whileHover={{ scale: 1.03 }}
+                className="bg-card border border-primary/20 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300"
               >
-                <div className="relative h-48 w-full">
+                <div className="relative h-52 w-full">
                   <Image
                     src={item.img}
                     alt={item.title}
                     fill
-                    className="object-cover opacity-85"
+                    className="object-cover opacity-90"
                     priority={i === 0}
                   />
                 </div>
@@ -93,7 +100,7 @@ export default function Timeline() {
                   <h3 className="font-semibold text-lg text-primary mb-1 tracking-tight">
                     {item.year}
                   </h3>
-                  <h4 className="font-bold text-xl mb-2">{item.title}</h4>
+                  <h4 className="font-bold text-xl mb-3">{item.title}</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {item.desc}
                   </p>
@@ -104,19 +111,22 @@ export default function Timeline() {
         ))}
       </div>
 
-      {/* closing message */}
+      {/* Inspirational Vision Section at Bottom */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="mt-20 text-center max-w-2xl mx-auto text-muted-foreground"
+        className="mt-16 bg-primary/10 border border-primary/30 rounded-3xl p-10 text-center max-w-3xl mx-auto shadow-lg"
       >
-        <p>
-          Every milestone represents a step forward — from early curiosity and
-          academic exploration to hands-on development and real-world impact.
-          My journey is built on learning, collaboration, and a deep passion for
-          turning ideas into functional, scalable solutions.
+        <h2 className="text-3xl font-bold text-primary mb-4">
+          🌟 Keep the Vision Alive
+        </h2>
+        <p className="text-muted-foreground leading-relaxed mb-4">
+          Every journey has challenges — stick to your dreams, embrace failures as lessons, and rise stronger each time. Every setback is a setup for growth and success.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          My story reflects this: curiosity, perseverance, learning from mistakes, and turning ideas into real-world impact. Keep learning, keep building, and never stop chasing your vision.
         </p>
       </motion.div>
     </section>
