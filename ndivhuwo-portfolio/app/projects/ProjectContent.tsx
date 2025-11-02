@@ -26,9 +26,6 @@ export default function ProjectContent({ projects }: Props) {
         />
       )}
 
-      {/* Filters */}
-      <ProjectFilters selected="all" setSelected={() => {}} />
-
       {/* Projects Grid */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-6">
         {projects.map(({ _id, title, shortDescription, thumbnail, tech, type, demoLink, githubLink }) => (
