@@ -8,6 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
+import TestimonialsSlider from "@/components/TestimonialsSlider";
+import { Sub } from "@radix-ui/react-dropdown-menu";
+import SubtleBackground from "@/components/SubtleBackground";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -24,14 +27,12 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       await fetch("https://formspree.io/f/xdkpeowg", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-
       setSubmitted(true);
       setForm({ name: "", email: "", message: "" });
     } catch (error) {
@@ -54,16 +55,31 @@ export default function ContactPage() {
       setFactLoading(false);
     }
   };
+  const testimonials = [
+  {
+    name: "Alice Johnson",
+    role: "Frontend Engineer",
+    company: "TechCorp",
+    quote: "Working with Ndivhuwo was a pleasure — super professional and detail-oriented!",
+    avatar: "/media/avatars/alice.jpg",
+  },
+  {
+    name: "Bob Smith",
+    role: "Product Manager",
+    company: "Innova",
+    quote: "Delivered high-quality work on tight deadlines. Highly recommend!",
+  },
+  {
+    name: "Carla Ruiz",
+    role: "Designer",
+    quote: "Creative, reliable, and a great team player. Loved collaborating!",
+  },
+];
 
   return (
     <section className="relative min-h-screen px-4 sm:px-8 py-20 max-w-7xl mx-auto">
-      {/* Subtle Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute w-72 h-72 bg-purple-500/5 rounded-full top-[-5%] left-[-5%]"></div>
-        <div className="absolute w-52 h-52 bg-pink-500/5 rounded-full bottom-[-5%] right-[-5%]"></div>
-        <div className="absolute w-72 h-72 bg-purple-500/5 rounded-full top-[10%] right-[-10%]"></div>
-        <div className="absolute w-52 h-52 bg-pink-500/5 rounded-full bottom-[10%] left-[-10%]"></div>
-      </div>
+      {/* Subtle Background Shapes */}
+      <SubtleBackground />
 
       {/* Page Header */}
       <motion.div
@@ -80,7 +96,7 @@ export default function ContactPage() {
 
       <Separator className="mb-12 relative z-10" />
 
-      {/* Fun Fact at top */}
+      {/* Fun Fact Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -101,9 +117,9 @@ export default function ContactPage() {
         </Card>
       </motion.div>
 
-      {/* Contact Form + Info side by side */}
+      {/* Contact Form + Info */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-        {/* Contact Form - spans 2 columns */}
+        {/* Form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -200,6 +216,7 @@ export default function ContactPage() {
           </Card>
         </motion.div>
       </div>
+      <TestimonialsSlider testimonials={testimonials} />
     </section>
   );
 }
