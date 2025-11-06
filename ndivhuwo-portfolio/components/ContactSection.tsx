@@ -2,35 +2,51 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Send } from "lucide-react";
 
 export default function ContactSection() {
   return (
-    <section className="relative py-24 px-6 md:px-10 max-w-6xl mx-auto rounded-3xl shadow-lg bg-background/80 overflow-hidden text-center">
+    <section
+      className="relative py-20 md:py-32 px-6 md:px-10 max-w-6xl mx-auto rounded-xl shadow-2xl overflow-hidden text-center
+                 bg-white border border-gray-200 shadow-gray-300/50
+                 dark:bg-gray-900 dark:border-violet-700/50 dark:shadow-violet-900/40"
+    >
+      {/* Decorative Radial Glow Element - Visible only in Dark Mode */}
+      <div className="absolute inset-0 z-0 opacity-0 dark:opacity-20 transition-opacity duration-500">
+        <div className="w-1/3 h-full bg-violet-600 rounded-full blur-[100px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+      </div>
+
       {/* Section Title */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="mb-8"
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true, amount: 0.5 }}
+        className="mb-10 relative z-10"
       >
-        <h2 className="text-3xl md:text-4xl font-semibold text-primary tracking-tight">
-          Get In Touch
+        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-gray-800 dark:text-violet-400">
+          Ready to Build?
         </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto mt-2">
-          I’m always open to discussing new projects, collaborations, or sharing ideas. Let’s connect and build something amazing together.
+        <p className="max-w-3xl mx-auto mt-4 text-lg text-gray-600 dark:text-gray-300">
+          I’m always open to discussing <strong>new projects</strong>, collaborations, or sharing ideas. Let’s connect and build something amazing together.
         </p>
       </motion.div>
 
       {/* Contact Button */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.3, type: "spring", stiffness: 120 }}
+        viewport={{ once: true, amount: 0.5 }}
+        className="relative z-10"
       >
-        <Link href="/contact">
-          <button className="px-8 py-3 bg-primary text-background font-semibold rounded-lg shadow-lg hover:bg-primary/90 transition">
-            Contact Me
-          </button>
+        <Link
+          href="/contact"
+          className="inline-flex items-center gap-3 px-10 py-4 text-lg font-bold rounded-xl shadow-xl transition-all duration-300 transform hover:scale-[1.02]
+                     bg-blue-600 text-white shadow-blue-500/50 hover:bg-blue-500 ring-2 ring-blue-400/50
+                     dark:bg-violet-600 dark:text-white dark:shadow-violet-500/50 dark:hover:bg-violet-500 dark:ring-2 dark:ring-violet-400/50"
+        >
+          Contact Me <Send size={20} />
         </Link>
       </motion.div>
     </section>
