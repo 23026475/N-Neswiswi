@@ -1,26 +1,21 @@
-// client.ts
-const projectId = "rwizuy4v";
-const dataset = "growthblog";
-const apiVersion = "v2025-10-28";
+import { createClient } from "next-sanity";
 
-/**
- * Reusable function to fetch data from Sanity
- * @param groqQuery - The GROQ query string
- */
-export async function fetchSanityData<T = any>(groqQuery: string): Promise<T | null> {
+export const client = createClient({
+  projectId: "rwizuy4v",
+  dataset: "growthblog",
+  apiVersion: "2025-10-28",
+  useCdn: true,
+});
+
+export async function fetchSanityData<T>(
+  query: string,
+  params: Record<string, any> = {}
+): Promise<T | null> {
   try {
-    const encodedQuery = encodeURIComponent(groqQuery);
-    const url = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${encodedQuery}`;
-
-    const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`Sanity fetch error: ${res.status} ${res.statusText}`);
-    }
-
-    const data = await res.json();
-    return data.result;
-  } catch (error) {
-    console.error("Error fetching Sanity data:", error);
+    const data = await client.fetch<T>(query, params);
+    return data;
+  } catch (err) {
+    console.error("Sanity fetch error:", err);
     return null;
   }
 }
