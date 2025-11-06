@@ -43,7 +43,7 @@
     ,
     ".next\\dev/types/**/*.ts",
     ".next\\dev/types/**/*.ts"
-, "components/AboutSkills.jsx"  ],
+, "components/AboutSkills.jsx", "components/MiniStats.jsx"  ],
   "exclude": [
     "node_modules"
   ]
