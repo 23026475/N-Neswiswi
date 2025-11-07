@@ -17,11 +17,14 @@ export type PostListItem = {
   publishedAt: string;
 };
 
-export type PostFull = {
+export interface PostFull {
   title: string;
-  mainImage: SanityImage;
-  author: string;
-  publishedAt: string;
-  body: any;
-  categories: string[];
-};
+  mainImage?: { asset?: { url: string }; alt?: string };
+  author?: string;
+  publishedAt?: string;
+  body?: any;
+  categories?: string[];
+  // Add optional navigation fields
+  prevSlug?: string | null;
+  nextSlug?: string | null;
+}

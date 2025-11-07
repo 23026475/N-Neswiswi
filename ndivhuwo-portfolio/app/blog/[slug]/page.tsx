@@ -1,15 +1,16 @@
 // @/app/blog/[slug]/page.tsx
+"use client";
 
 import { groq } from "next-sanity";
 import { fetchSanityData } from "@/sanity/lib/client";
 import PostContent from "./PostContent";
-import PostNavigation from "./PostNavigation";
+import PostNavigation from "@/app/blog/[slug]/PostNavigation";
 import { PostFull } from "@/types";
 import Image from "next/image";
-import { format } from "date-fns"; 
+import { format } from "date-fns";
 import { Calendar, User, Tag } from "lucide-react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 // GROQ query with prevSlug & nextSlug
 const query = groq`
@@ -25,22 +26,24 @@ const query = groq`
 }
 `;
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+interface PostPageProps {
+  params: { slug: string };
+}
 
+export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = params;
   const post = await fetchSanityData<PostFull>(query, { slug });
 
   if (!post) {
     return (
       <div className="text-center py-20 text-xl text-primary">
         Post not found
-        {/* Back to Blog */}
-      <Link
-        href="/blog"
-        className="flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
-      >
-        <ChevronLeft className="w-4 h-4 border-primary border-4xl bg-background" /> Back to Blog
-      </Link>
+        <Link
+          href="/blog"
+          className="flex items-center gap-2 text-sm font-semibold text-primary hover:underline mt-4"
+        >
+          <ChevronLeft className="w-4 h-4" /> Back to Blog
+        </Link>
       </div>
     );
   }
@@ -86,7 +89,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           </div>
 
           {/* Categories */}
-          {post.categories?.length > 0 && (
+          {post.categories?.length ? (
             <div className="flex flex-wrap justify-center gap-2 mt-4">
               {post.categories.map((cat, i) => (
                 <span
@@ -97,7 +100,8 @@ export default async function PostPage({ params }: { params: { slug: string } })
                 </span>
               ))}
             </div>
-          )}
+          ) : null}
+
         </div>
       </section>
 
@@ -122,7 +126,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
       </section>
 
       {/* --- NAVIGATION BUTTONS --- */}
-      <PostNavigation prevSlug={post.prevSlug} nextSlug={post.nextSlug} />
+      <PostNavigation prevSlug={post.prevSlug ?? undefined} nextSlug={post.nextSlug ?? undefined} />
 
     </div>
   );
