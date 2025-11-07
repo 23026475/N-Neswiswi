@@ -7,8 +7,8 @@ import { Send } from "lucide-react";
 export default function ContactSection() {
   return (
     <section
-      className="relative py-20 md:py-32 px-6 md:px-10 max-w-6xl mx-auto rounded-xl shadow-2xl overflow-hidden text-center
-                 bg-white border border-gray-200 shadow-gray-300/50
+      className="relative md:py-32 px-6 md:px-10  mx-auto mt-22 shadow-2xl overflow-hidden text-center
+                 bg-violet-200/70 border border-gray-200 shadow-gray-300/50
                  dark:bg-gray-900 dark:border-violet-700/50 dark:shadow-violet-900/40"
     >
       {/* Decorative Radial Glow Element - Visible only in Dark Mode */}
@@ -24,7 +24,7 @@ export default function ContactSection() {
         viewport={{ once: true, amount: 0.5 }}
         className="mb-10 relative z-10"
       >
-        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-gray-800 dark:text-violet-400">
+        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-primary">
           Ready to Build?
         </h2>
         <p className="max-w-3xl mx-auto mt-4 text-lg text-gray-600 dark:text-gray-300">
@@ -43,8 +43,8 @@ export default function ContactSection() {
         <Link
           href="/contact"
           className="inline-flex items-center gap-3 px-10 py-4 text-lg font-bold rounded-xl shadow-xl transition-all duration-300 transform hover:scale-[1.02]
-                     bg-blue-600 text-white shadow-blue-500/50 hover:bg-blue-500 ring-2 ring-blue-400/50
-                     dark:bg-violet-600 dark:text-white dark:shadow-violet-500/50 dark:hover:bg-violet-500 dark:ring-2 dark:ring-violet-400/50"
+                      text-white ring-2 
+                     bg-violet-600 dark:text-white shadow-violet-500/50 hover:bg-violet-500 dark:ring-2 ring-violet-400/50"
         >
           Contact Me <Send size={20} />
         </Link>
