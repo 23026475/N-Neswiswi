@@ -104,7 +104,7 @@ export default function ProjectsPage() {
           className="relative z-10 flex-1 max-w-xl text-center md:text-left space-y-4"
         >
           <motion.h1
-            className="text-4xl md:text-5xl font-bold tracking-tight leading-snug"
+            className="text-4xl md:text-5xl font-bold text-primary"
             initial="hidden"
             animate="visible"
             variants={{
@@ -112,10 +112,10 @@ export default function ProjectsPage() {
               visible: { transition: { staggerChildren: 0.1 } },
             }}
           >
-            {["Crafting", "digital", "experiences", "that", "captivate"].map((word, i) => (
+            {["Crafting", "digital", "experiences", "that", "captivate", "and", "simplify", "life"].map((word, i) => (
               <motion.span
                 key={i}
-                className="inline-block mr-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500"
+                className="inline-block mr-2 bg-clip-text text-primary bg-gradient-to-r from-primary to-purple-500"
                 variants={{
                   hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
                   visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" } },
