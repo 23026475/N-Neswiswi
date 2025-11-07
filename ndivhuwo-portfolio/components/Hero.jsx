@@ -50,7 +50,7 @@ export default function HeroSection() {
   // --- End Typing Animation Logic ---
 
   return (
-    <section className="relative w-full min-h-[90vh] flex items-center px-6 md:px-12 lg:px-24 py-16 overflow-hidden">
+    <section className="relative w-full min-h-[90vh] flex items-center px-6 md:px-12 lg:px-24 py-16 overflow-hidden mb-24">
       
       {/* 0. Subtle Background / Pattern */}
       <motion.div

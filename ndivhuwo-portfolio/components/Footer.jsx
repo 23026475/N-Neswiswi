@@ -39,10 +39,10 @@ const ScrollToTopButton = () => {
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}
 
         /* Light Mode Styles */
-        bg-blue-600 text-white hover:bg-blue-500 focus:ring-blue-500/50
+         text-white  
         
         /* Dark Mode Styles */
-        dark:bg-violet-600 dark:text-white dark:hover:bg-violet-500 dark:focus:ring-violet-500/50
+        bg-violet-600 dark:text-white hover:bg-violet-500 focus:ring-violet-500/50
     `;
 
     return (
@@ -62,14 +62,14 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     // Define the style used for all primary text/links
-    const primaryTextStyle = "flex items-center gap-2 text-base font-normal hover:font-medium transition-colors duration-300 cursor-pointer text-gray-600 hover:text-blue-700 dark:text-gray-300 dark:hover:text-violet-400";
+    const primaryTextStyle = "flex items-center gap-2 text-base font-normal hover:font-medium transition-colors duration-300 cursor-pointer text-gray-600  dark:text-gray-300 hover:text-violet-400";
 
     // Define the style for social icons (using a button-like appearance)
     const socialIconStyle = "p-3 rounded-full transition-all duration-300 shadow-md transform hover:scale-105 \
         /* Light Mode */ \
-        bg-gray-100 text-gray-700 border border-gray-300 hover:bg-blue-600 hover:text-white hover:shadow-lg \
+        bg-gray-100 text-gray-700 border border-gray-300 hover:text-white hover:shadow-lg \
         /* Dark Mode */ \
-        dark:bg-gray-800 dark:text-gray-300 dark:border-violet-700/50 dark:hover:bg-violet-600 dark:hover:text-white dark:hover:shadow-violet-500/50";
+        dark:bg-gray-800 dark:text-gray-300 dark:border-violet-700/50 hover:bg-violet-600 dark:hover:text-white dark:hover:shadow-violet-500/50";
 
   return (
     <>
@@ -92,20 +92,20 @@ export default function Footer() {
                 <div className="flex flex-col gap-3 max-w-lg">
                     {/* Name: Dark color in Light, White in Dark */}
                     <h2 className="text-4xl font-extrabold tracking-tight pb-1 inline-block 
-                                   text-gray-800 border-b-2 border-gray-400/50 
-                                   dark:text-white dark:border-violet-500/50">
+                                   text-primary border-b-2 border-gray-400/50 
+                                    dark:border-violet-500/50">
                         Ndivhuwo Neswiswi
                     </h2>
                     {/* Tagline text color */}
                     <p className="text-lg max-w-sm text-gray-500 dark:text-gray-300 font-light">
-                        Building **scalable**, **efficient** software solutions with a focus on clean architecture and performance.
+                        Building scalable, efficient software solutions with a focus on clean architecture and performance.
                     </p>
                     {/* Call to Action Link: Blue theme in Light, Violet theme in Dark */}
                     <Link 
                         href="/contact" 
                         className="text-sm font-semibold mt-4 p-2 rounded-md w-fit cursor-pointer 
-                                   bg-gray-100 text-blue-600 border border-blue-400/50 hover:bg-blue-100 
-                                   dark:bg-gray-800 dark:text-violet-400 dark:border-violet-700/30 dark:hover:bg-violet-900/40"
+                                   bg-gray-100 border 
+                                   dark:bg-gray-800 text-violet-400 border-violet-700/30 hover:bg-violet-900/40"
                     >
                         ✨ Let's connect and build something impactful.
                     </Link>
@@ -115,27 +115,27 @@ export default function Footer() {
                 <div className="flex flex-col gap-3">
                     {/* Heading: Dark color in Light, White in Dark with color border */}
                     <h3 className="text-xl font-bold pb-1 mb-3 
-                                   text-gray-800 border-b-2 border-blue-600/70 
-                                   dark:text-white dark:border-violet-600">Navigation</h3>
+                                   text-primary border-b-2 
+                                    border-violet-600/40">Navigation</h3>
                     <Link href="/about" className={primaryTextStyle}>
-                            About <ArrowUpRight className="w-3 h-3 text-blue-500 dark:text-violet-400"/>
+                            About <ArrowUpRight className="w-3 h-3 text-violet-400"/>
                         </Link>
                     <Link href="/projects" className={primaryTextStyle}>
-                            Projects <ArrowUpRight className="w-3 h-3 text-blue-500 dark:text-violet-400"/>
+                            Projects <ArrowUpRight className="w-3 h-3 text-violet-400"/>
                         </Link>
                     <Link href="/contact" className={primaryTextStyle}>
-                            Contact <ArrowUpRight className="w-3 h-3 text-blue-500 dark:text-violet-400"/>
+                            Contact <ArrowUpRight className="w-3 h-3 text-violet-400"/>
                         </Link>
                         <Link href="/blog" className={primaryTextStyle}>
-                            Blog <ArrowUpRight className="w-3 h-3 text-blue-500 dark:text-violet-400"/>
+                            Blog <ArrowUpRight className="w-3 h-3 text-violet-400"/>
                         </Link>
                 </div>
 
                 {/* 3. Socials */}
                 <div className="flex flex-col gap-4">
                     <h3 className="text-xl font-bold pb-1 mb-3 
-                                   text-gray-800 border-b-2 border-blue-600/70 
-                                   dark:text-white dark:border-violet-600">Connect</h3>
+                                   text-primary border-b-2 
+                                    border-violet-600/40">Connect</h3>
                     <div className="flex items-center gap-4">
                         {/* Icons use the defined socialIconStyle */}
                         <a href="https://www.linkedin.com/in/ndivhuwo-neswiswi-163b55311/" target="_blank" className={socialIconStyle} aria-label="LinkedIn profile">
