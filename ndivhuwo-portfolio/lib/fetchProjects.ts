@@ -28,6 +28,9 @@ export async function fetchProjects(): Promise<Project[]> {
       featured
     }
   `;
-  const data = await fetchSanityData(query);
+
+  // Tell TS that fetchSanityData will return Project[]
+  const data = await fetchSanityData<Project[]>(query);
+
   return data ?? [];
 }
