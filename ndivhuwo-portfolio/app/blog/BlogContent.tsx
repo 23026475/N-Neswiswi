@@ -15,7 +15,7 @@ export default function BlogContent({ posts }: Props) {
       
       {/* Header */}
       <div className="max-w-7xl mx-auto text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-primary">
           Developer Insights & Articles
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-400 mt-3">
@@ -45,7 +45,7 @@ export default function BlogContent({ posts }: Props) {
             {/* Content */}
             <div className="p-6 flex flex-col justify-between h-full">
               {/* Title */}
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+              <h2 className="text-2xl font-bold text-primary group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
                 {post.title}
               </h2>
 

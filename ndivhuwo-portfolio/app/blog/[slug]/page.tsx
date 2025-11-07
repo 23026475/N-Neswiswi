@@ -8,6 +8,8 @@ import { PostFull } from "@/types";
 import Image from "next/image";
 import { format } from "date-fns"; 
 import { Calendar, User, Tag } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
 
 // GROQ query with prevSlug & nextSlug
 const query = groq`
@@ -30,8 +32,15 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
   if (!post) {
     return (
-      <div className="text-center py-20 text-xl dark:text-gray-300">
+      <div className="text-center py-20 text-xl text-primary">
         Post not found
+        {/* Back to Blog */}
+      <Link
+        href="/blog"
+        className="flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+      >
+        <ChevronLeft className="w-4 h-4 border-primary border-4xl bg-background" /> Back to Blog
+      </Link>
       </div>
     );
   }
@@ -57,7 +66,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
         <div className="absolute inset-0 bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"></div>
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary mb-6">
             {post.title}
           </h1>
 
