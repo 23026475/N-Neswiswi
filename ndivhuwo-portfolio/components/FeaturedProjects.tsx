@@ -1,157 +1,168 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import ProjectFilters from "@/components/ProjectFilters";
-import ProjectsGrid from "@/components/ProjectsGrid";
+import { useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-interface Project {
+export interface Project {
   _id: string;
   title: string;
-  shortDescription?: string;
+  shortDescription: string;
   thumbnail: string;
-  tech?: string[];
-  type?: string;
-  demoLink?: string;
-  githubLink?: string;
-  featured?: boolean;
+  demoUrl?: string;
+  githubUrl?: string;
 }
 
-export default function FeaturedProjectsSection() {
-  const [projects, setProjects] = useState<Project[]>([]);
+interface FeaturedProjectsSectionProps {
+  projects: Project[];
+}
+
+export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [filterType, setFilterType] = useState<string>("All");
-  const [filterTechs, setFilterTechs] = useState<string[]>([]);
+  const [slideOffset, setSlideOffset] = useState(0);
 
-  // Fetch projects from API
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const res = await fetch("/api/projects");
-        const data = await res.json();
-        setProjects(data);
-      } catch (err) {
-        console.error("Error fetching projects:", err);
-      }
-    };
-    fetchProjects();
-  }, []);
+  if (!projects.length) return null;
 
-  const featuredProjects = projects.filter((p) => p.featured) || [];
-  const projectTypes = ["All", ...Array.from(new Set(projects.map((p) => p.type).filter((t): t is string => !!t)))];
-  const projectTechs = Array.from(new Set(projects.flatMap((p) => p.tech || [])));
-  const filteredProjects = projects.filter((p) => {
-    const typeMatch = filterType === "All" || p.type === filterType;
-    const techMatch = filterTechs.length === 0 ? true : p.tech?.some((t) => filterTechs.includes(t));
-    return typeMatch && techMatch;
-  });
-  const resetFilters = () => {
-    setFilterType("All");
-    setFilterTechs([]);
+  const prevIndex = (activeIndex - 1 + projects.length) % projects.length;
+  const nextIndex = (activeIndex + 1) % projects.length;
+
+  const handlePrev = () => {
+    setSlideOffset(-30);
+    setTimeout(() => {
+      setActiveIndex(prevIndex);
+      setSlideOffset(0);
+    }, 150);
   };
 
-  // Auto-rotation
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % featuredProjects.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [featuredProjects.length]);
-
-  if (!featuredProjects.length) return null;
-
-  const prevIndex = (activeIndex - 1 + featuredProjects.length) % featuredProjects.length;
-  const nextIndex = (activeIndex + 1) % featuredProjects.length;
+  const handleNext = () => {
+    setSlideOffset(30);
+    setTimeout(() => {
+      setActiveIndex(nextIndex);
+      setSlideOffset(0);
+    }, 150);
+  };
 
   return (
-    <section className="relative w-full flex flex-col gap-16 py-24">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={featuredProjects[activeIndex].thumbnail}
-              alt={featuredProjects[activeIndex].title}
-              fill
-              className="object-cover filter brightness-50"
-            />
-          </motion.div>
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-black/30"></div>
+    <section className="relative w-full h-screen overflow-hidden">
+      {/* Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-all duration-700"
+        style={{ backgroundImage: `url(${projects[activeIndex].thumbnail})` }}
+      >
+        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
-      {/* Carousel */}
-      <div className="relative z-10 flex flex-col items-center gap-8">
-        <div className="flex items-center justify-center gap-6 overflow-hidden w-full max-w-5xl">
-          {[prevIndex, activeIndex, nextIndex].map((i, idx) => {
-            const isActive = i === activeIndex;
-            return (
-              <motion.div
-                key={i}
-                className={`relative rounded-2xl cursor-pointer transition-transform duration-500`}
-                style={{
-                  transform: isActive ? "scale(1)" : "scale(0.8)",
-                  zIndex: isActive ? 20 : 10,
-                }}
-                onClick={() => setActiveIndex(i)}
-              >
-                <Image
-                  src={featuredProjects[i].thumbnail}
-                  alt={featuredProjects[i].title}
-                  width={isActive ? 400 : 250}
-                  height={isActive ? 300 : 200}
-                  className="rounded-2xl object-cover shadow-lg"
-                />
-              </motion.div>
-            );
-          })}
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center h-full max-w-7xl mx-auto px-4 lg:px-8 py-12">
+        {/* Left Side: Project Details */}
+        <div className="w-full lg:w-1/2 text-white space-y-4 mb-8 lg:mb-0 text-center lg:text-left">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            {projects[activeIndex].title}
+          </h1>
+          <p className="text-lg md:text-xl lg:text-2xl mt-4">
+            {projects[activeIndex].shortDescription}
+          </p>
+          <div className="flex flex-wrap gap-4 mt-4">
+            {projects[activeIndex].demoUrl && (
+              <a href={projects[activeIndex].demoUrl} target="_blank" rel="noopener noreferrer">
+                <button className="px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition">
+                  Demo
+                </button>
+              </a>
+            )}
+            {projects[activeIndex].githubUrl && (
+              <a href={projects[activeIndex].githubUrl} target="_blank" rel="noopener noreferrer">
+                <button className="px-6 py-3 bg-gray-800 text-white font-semibold rounded-xl hover:bg-gray-700 transition">
+                  GitHub
+                </button>
+              </a>
+            )}
+          </div>
+          <a href="/projects">
+            <button className="hidden lg:inline-block mt-6 px-6 py-3 bg-violet-900 text-white font-semibold rounded-xl hover:bg-primary/90 transition">
+              See All Projects
+            </button>
+          </a>
         </div>
 
-        {/* Active Project Info */}
-        <div className="text-center max-w-2xl mt-6 text-white z-10">
-          <h2 className="text-3xl md:text-4xl font-bold">{featuredProjects[activeIndex].title}</h2>
-          {featuredProjects[activeIndex].shortDescription && (
-            <p className="mt-2 text-md md:text-lg">{featuredProjects[activeIndex].shortDescription}</p>
-          )}
-          {featuredProjects[activeIndex].tech && (
-            <div className="flex flex-wrap justify-center gap-2 mt-3">
-              {featuredProjects[activeIndex].tech.map((t, idx) => (
-                <span key={idx} className="px-3 py-1 text-sm bg-white/20 border border-white/30 text-white rounded-full">
-                  {t}
-                </span>
-              ))}
-            </div>
-          )}
+        {/* Right Side: Carousel */}
+        <div className="w-full lg:w-1/2 relative flex flex-col justify-center items-center h-full">
+          {/* Desktop/Tablet Carousel */}
+          <div className="hidden lg:flex items-center justify-center relative w-full">
+            {[prevIndex, activeIndex, nextIndex].map((i, idx) => {
+              const isActive = i === activeIndex;
+              const zIndex = isActive ? 30 : 10;
+              const scale = isActive ? 1 : 0.8;
+              const translateX = idx === 0 ? -140 : idx === 1 ? 0 : 140;
+              const opacity = isActive ? 1 : 0.7;
+
+              return (
+                <div
+                  key={projects[i]._id}
+                  className="absolute rounded-xl overflow-hidden shadow-2xl cursor-pointer transition-transform duration-500 ease-in-out transform-gpu"
+                  style={{
+                    width: isActive ? "260px" : "200px",
+                    height: isActive ? "400px" : "280px",
+                    zIndex: zIndex,
+                    transform: `translateX(${translateX + slideOffset}px) scale(${scale})`,
+                    opacity: opacity,
+                    backgroundImage: `url(${projects[i].thumbnail})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                  onClick={() => setActiveIndex(i)}
+                ></div>
+              );
+            })}
+
+            {/* Arrows */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-0 top-1/2 -translate-y-1/2 text-white text-3xl p-3 bg-black/30 rounded-full hover:bg-black/50 transition z-20"
+            >
+              <FaChevronLeft />
+            </button>
+            <button
+              onClick={handleNext}
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-white text-3xl p-3 bg-black/30 rounded-full hover:bg-black/50 transition z-20"
+            >
+              <FaChevronRight />
+            </button>
+          </div>
+
+          {/* Mobile Carousel */}
+          <div className="lg:hidden w-full max-w-sm flex flex-col items-center">
+            <div
+              className="rounded-xl overflow-hidden shadow-2xl cursor-pointer transition-transform duration-500"
+              style={{
+                width: "100%",
+                height: "300px",
+                backgroundImage: `url(${projects[activeIndex].thumbnail})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+              onClick={handleNext}
+            ></div>
+            
+            {/* Arrows */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-0 top-1/2 -translate-y-1/2 text-white text-3xl p-3 bg-black/30 rounded-full hover:bg-black/50 transition z-20"
+            >
+              <FaChevronLeft />
+            </button>
+            <button
+              onClick={handleNext}
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-white text-3xl p-3 bg-black/30 rounded-full hover:bg-black/50 transition z-20"
+            >
+              <FaChevronRight />
+            </button>
+          </div>
+          <a href="/projects">
+            <button className="mt-6 px-12 py-3 bg-violet-900 text-white font-semibold rounded-xl hover:bg-primary/90 transition">
+              See All Projects
+            </button>
+          </a>
+        
         </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="max-w-5xl mx-auto text-center px-4">
-        <button className="mt-6 px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition">
-          See All Projects
-        </button>
-      </div>
-
-      {/* Filters + Grid */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-0 flex flex-col gap-12 mt-12">
-        <ProjectFilters
-          types={projectTypes}
-          techs={projectTechs}
-          selectedType={filterType}
-          selectedTechs={filterTechs}
-          onTypeChange={setFilterType}
-          onTechsChange={setFilterTechs}
-          onReset={resetFilters}
-        />
-        <ProjectsGrid projects={filteredProjects} />
       </div>
     </section>
   );
