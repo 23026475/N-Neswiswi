@@ -29,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <SideNavWrapper />
         <main>{children}</main>
+        <Separator className="mb-12 relative z-10" />
         <ContactSection />
         <Footer/>
       </body>
