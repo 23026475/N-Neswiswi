@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link"; // ✅ Import Link
 import { motion } from "framer-motion";
 import SubtleBackground from "@/components/SubtleBackground";
 
@@ -112,18 +113,18 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-            <a
-              href="#projects"
+            <Link
+              href="/projects" // ✅ Real page navigation
               className="px-6 sm:px-8 py-3 bg-purple-600 text-white font-semibold text-base sm:text-lg rounded-xl shadow-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-[1.02] border-2 border-transparent"
             >
               🚀 View Projects
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              href="/contact" // ✅ Real page navigation
               className="px-6 sm:px-8 py-3 bg-transparent text-gray-900 dark:text-white font-semibold text-base sm:text-lg rounded-xl border-2 border-purple-600 dark:border-purple-400 hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-[1.02]"
             >
               Get in Touch
-            </a>
+            </Link>
           </div>
         </motion.div>
       </div>
