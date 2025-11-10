@@ -205,7 +205,7 @@ export default function SkillsPreview() {
                 /* Default speed for large screens */
                 .animate-scroll {
                     display: inline-flex;
-                    animation: scroll 35s linear infinite;
+                    animation: scroll 55s linear infinite;
                 }
 
                 /* Medium screens — faster */
