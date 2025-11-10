@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Sheet,
   SheetTrigger,
@@ -44,9 +44,20 @@ export default function ProjectFilters({
   onTechsChange,
   onReset,
 }: ProjectFiltersProps) {
-  const [tempTechs, setTempTechs] = useState<string[]>(selectedTechs);
-  const [tempType, setTempType] = useState<string>(selectedType);
+  // Local state to manage temporary selections before applying
+  const [tempType, setTempType] = useState<string>(selectedType || "All");
+  const [tempTechs, setTempTechs] = useState<string[]>([...selectedTechs]);
 
+  // Sync local state if parent props change
+  useEffect(() => {
+    setTempType(selectedType || "All");
+  }, [selectedType]);
+
+  useEffect(() => {
+    setTempTechs([...selectedTechs]);
+  }, [selectedTechs]);
+
+  // Toggle individual tech selection
   const toggleTech = (tech: string) => {
     setTempTechs((prev) =>
       prev.includes(tech)
@@ -55,16 +66,21 @@ export default function ProjectFilters({
     );
   };
 
+  // Apply filters to parent component
   const applyFilters = () => {
-    onTechsChange(tempTechs);
     onTypeChange(tempType);
+    onTechsChange(tempTechs);
   };
 
+  // Reset all filters
   const resetAll = () => {
-    setTempTechs([]);
     setTempType("All");
+    setTempTechs([]);
     onReset();
   };
+
+  // Ensure types array is unique and does not include "All"
+  const uniqueTypes = Array.from(new Set(types.filter((t) => t !== "All")));
 
   return (
     <div className="w-full flex justify-end mb-6">
@@ -76,7 +92,6 @@ export default function ProjectFilters({
           </Button>
         </SheetTrigger>
 
-        {/* Slide-Out Panel */}
         <SheetContent side="right" className="w-80 sm:w-96">
           <SheetHeader>
             <SheetTitle className="text-lg font-semibold flex items-center gap-2">
@@ -88,22 +103,20 @@ export default function ProjectFilters({
           <Separator className="my-4" />
 
           <div className="flex flex-col gap-6">
-
             {/* PROJECT TYPE */}
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium">Project Type</label>
 
               <Select
-                defaultValue={tempType}
+                value={tempType}
                 onValueChange={(v) => setTempType(v)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
-
                 <SelectContent>
                   <SelectItem value="All">All</SelectItem>
-                  {types.map((t) => (
+                  {uniqueTypes.map((t) => (
                     <SelectItem key={t} value={t}>
                       {t}
                     </SelectItem>
@@ -112,7 +125,7 @@ export default function ProjectFilters({
               </Select>
             </div>
 
-            {/* TECH MULTI-SELECT */}
+            {/* TECHNOLOGIES */}
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium">Technologies</label>
 
@@ -121,9 +134,7 @@ export default function ProjectFilters({
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     checked={tempTechs.length === 0}
-                    onCheckedChange={() =>
-                      setTempTechs([]) // clears techs = All
-                    }
+                    onCheckedChange={() => setTempTechs([])}
                   />
                   <span className="text-sm">All</span>
                 </div>
@@ -144,7 +155,6 @@ export default function ProjectFilters({
           </div>
 
           <SheetFooter className="mt-8 flex flex-col gap-3">
-            {/* RESET BUTTON */}
             <Button
               variant="ghost"
               className="flex items-center gap-2 text-red-500 hover:text-red-600"
@@ -154,7 +164,6 @@ export default function ProjectFilters({
               Reset Filters
             </Button>
 
-            {/* APPLY BUTTON */}
             <SheetClose asChild>
               <Button onClick={applyFilters} className="w-full">
                 Apply Filters
