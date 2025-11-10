@@ -150,31 +150,31 @@ export default function Timeline() {
             </motion.div>
 
             {/* Badge Row */}
-{item.badges && item.badges.length > 0 && (
-  <div className="relative flex overflow-x-auto gap-4 py-4 mb-12 px-6 md:px-0 rounded-lg 
-                  bg-background border border-purple-400 dark:border-purple-600
-                  shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1
-                  justify-center">
-    {item.badges.map((badge, j) => (
-      <div
-        key={j}
-        className="flex-shrink-0 w-32 sm:w-40 bg-white rounded-lg shadow-md p-2 flex flex-col items-center gap-2 cursor-default transition-transform duration-300 hover:scale-105"
-      >
-        <div className="relative h-16 w-16">
-          <Image
-            src={badge.img}
-            alt={badge.label}
-            fill
-            className="object-contain"
-          />
-        </div>
-        <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center">
-          {badge.label}
-        </p>
-      </div>
-    ))}
-  </div>
-)}
+            {item.badges && item.badges.length > 0 && (
+              <div className="relative flex overflow-x-auto gap-4 py-4 mb-12 px-6 md:px-0 rounded-lg 
+                              bg-background border border-purple-400 dark:border-purple-600
+                              shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1
+                              justify-center">
+                {item.badges.map((badge, j) => (
+                  <div
+                    key={j}
+                    className="flex-shrink-0 w-32 sm:w-40 bg-white rounded-lg shadow-md p-2 flex flex-col items-center gap-2 cursor-default transition-transform duration-300 hover:scale-105"
+                  >
+                    <div className="relative h-16 w-16">
+                      <Image
+                        src={badge.img}
+                        alt={badge.label}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center">
+                      {badge.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
 
           </div>
         ))}
