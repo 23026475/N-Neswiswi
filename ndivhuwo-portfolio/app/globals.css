@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  scroll-padding-top: 4rem; /* adjust to your navbar height */
+  scroll-behavior: smooth;   /* smooth scroll for all anchor links */
+}
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
