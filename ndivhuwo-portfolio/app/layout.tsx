@@ -4,8 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import SideNavWrapper from "@/components/SideNavWrapper";
 import Footer from "@/components/Footer";
-import ContactSection from "@/components/ContactSection";
-import { Separator } from "@radix-ui/react-separator";
+import ConditionalContactWrapper from "@/components/ConditionalContactWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,16 +21,24 @@ export const metadata: Metadata = {
   description: "Ndivhuwo Neswiswi's Personal Portfolio Webapp",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className={`bg-background text-foreground ${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`bg-background text-foreground ${geistSans.variable} ${geistMono.variable}`}
+      >
         <Navbar />
         <SideNavWrapper />
         <main>{children}</main>
-        <Separator className="mb-12 relative z-10" />
-        <ContactSection />
-        <Footer/>
+
+        {/* ✅ Conditional contact section */}
+        <ConditionalContactWrapper />
+
+        <Footer />
       </body>
     </html>
   );
