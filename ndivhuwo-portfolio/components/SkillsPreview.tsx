@@ -16,6 +16,7 @@ import d365Icon from "@/public/media/icons/d365.jpg";
 import powerAppsIcon from "@/public/media/icons/powerappsIcon.jpg";
 import powerAutoIcon from "@/public/media/icons/powerautoIcon.jpg";
 import powerBIIcon from "@/public/media/icons/PowerbiIcon.jpg";
+import CertificationsPreview from "./CertificationsPreview";
 
 // ========== INTERFACE ==========
 interface HardSkillBlockProps {
@@ -166,6 +167,7 @@ export default function SkillsPreview() {
           </motion.div>
         </div>
       </div>
+      <CertificationsPreview />
 
       {/* Tech Stack Carousel */}
       <div className="w-full relative py-8 mt-8">
@@ -205,20 +207,20 @@ export default function SkillsPreview() {
                 /* Default speed for large screens */
                 .animate-scroll {
                     display: inline-flex;
-                    animation: scroll 55s linear infinite;
+                    animation: scroll 75s linear infinite;
                 }
 
                 /* Medium screens — faster */
                 @media (max-width: 1024px) {
                     .animate-scroll {
-                    animation-duration: 25s;
+                    animation-duration: 25s linear infinite;
                     }
                 }
 
                 /* Small screens — fastest */
                 @media (max-width: 640px) {
                     .animate-scroll {
-                    animation-duration: 30s;
+                    animation-duration: 30s linear infinite;
                     }
                 }
                 `}</style>

@@ -19,7 +19,7 @@ export default function ContactPage() {
         transition={{ duration: 0.6 }}
         className="text-center mb-16 relative z-10"
       >
-        <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-primary">
+        <h1 className="text-3xl md:text-5xl font-extrabold mx-8 text-primary">
           Let's Build Something Great 🚀
         </h1>
         <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl max-w-3xl mx-auto">
@@ -106,9 +106,6 @@ export default function ContactPage() {
         </Card>
       </motion.div>
 
-      <div className="mt-24">
-        <SectionSeparator />
-      </div>
     </section>
   );
 }
