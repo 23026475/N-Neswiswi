@@ -69,79 +69,61 @@ export default function ProjectsPage() {
       {/* HERO SECTION — FULL WIDTH */}
       <div
         ref={heroRef}
-        className="relative flex flex-col md:flex-row items-center gap-8 min-h-[85vh] px-4 md:px-12 lg:px-24 overflow-hidden w-full"
+        className="relative flex flex-col items-center gap-8 px-4 sm:px-6 md:px-12 lg:px-24 pt-24 md:pt-32 overflow-visible w-full"
       >
-        {/* Subtle floating particles */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
-          transition={{ duration: 2 }}
-        >
+        {/* Floating particles */}
+        <motion.div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-10 left-10 w-2 h-2 bg-primary/40 rounded-full blur-[2px] animate-pulse" />
           <div className="absolute bottom-16 right-16 w-3 h-3 bg-purple-400/40 rounded-full blur-[3px] animate-ping" />
           <div className="absolute top-1/2 left-1/3 w-1.5 h-1.5 bg-blue-400/40 rounded-full blur-[2px] animate-bounce" />
         </motion.div>
 
-        {/* Subtle gradient glow */}
+        {/* Gradient Glow */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           transition={{ duration: 1.5 }}
-          className="absolute -top-20 left-0 w-[600px] h-[600px] bg-primary/30 rounded-full blur-[120px]"
+          className="absolute -top-20 left-0 w-[500px] sm:w-[600px] md:w-[700px] h-[500px] sm:h-[600px] md:h-[700px] bg-primary/30 rounded-full blur-[120px]"
         />
 
-        {/* Floating Background */}
+        {/* Subtle Background */}
         <motion.div className="absolute inset-0" style={{ y: yText, opacity: opacityHero }}>
           <SubtleBackground />
         </motion.div>
 
-        {/* Animated Hero Text */}
+        {/* Hero Text — Always on top */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          className="relative z-10 flex-1 max-w-xl text-center md:text-left space-y-4"
+          className="relative z-10 max-w-xl text-center md:text-left space-y-4 w-full"
         >
-          <motion.h1
-            className="text-4xl md:text-5xl font-bold text-primary"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.1 } },
-            }}
-          >
-            {["Crafting", "digital", "experiences", "that", "captivate", "and", "simplify", "life"].map((word, i) => (
-              <motion.span
-                key={i}
-                className="inline-block mr-2 bg-clip-text text-primary bg-gradient-to-r from-primary to-purple-500"
-                variants={{
-                  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-                  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" } },
-                }}
-              >
-                {word}
-              </motion.span>
-            ))}
+          <motion.h1 className="text-4xl sm:text-5xl font-bold text-primary">
+            {["Crafting", "digital", "experiences", "that", "captivate", "and", "simplify", "life"].map(
+              (word, i) => (
+                <motion.span
+                  key={i}
+                  className="inline-block mr-2 bg-clip-text text-primary bg-gradient-to-r from-primary to-purple-500"
+                  initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.1 }}
+                >
+                  {word}
+                </motion.span>
+              )
+            )}
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1, ease: "easeOut", delay: 0.3 }}
-            className="text-gray-700 dark:text-gray-300 md:text-lg"
-          >
+          <motion.p className="text-gray-700 dark:text-gray-300 md:text-lg">
             Explore my work across Full Stack, Frontend, Backend, APIs, and Web Applications.
           </motion.p>
         </motion.div>
 
-        {/* Slideshow — animated zoom in */}
+        {/* Hero Slideshow — Always fully visible */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
-          className="relative flex-1 w-full md:w-[60%] z-10 h-[55vh] md:h-[75vh]"
+          className="relative w-full md:w-[60%] z-10 min-h-[40vh] sm:min-h-[55vh] md:min-h-[75vh] max-h-[80vh]"
         >
           {featuredProjects.length ? (
             <HeroSlideshow
@@ -162,6 +144,7 @@ export default function ProjectsPage() {
           )}
         </motion.div>
       </div>
+
 
       {/* REST OF PAGE — CONSTRAINED */}
       <div className="max-w-7xl mx-auto px-4 lg:px-0 flex flex-col gap-12">
