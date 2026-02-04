@@ -53,7 +53,7 @@ export default defineType({
 
           { title: "AI / Intelligent Systems", value: "ai" }
         ],
-      },
+      }
     }),
 
     defineField({
