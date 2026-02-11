@@ -1,5 +1,4 @@
-// src/types.ts
-
+// Project Types
 export type SanityImage = {
   asset: {
     url: string;
@@ -7,24 +6,5 @@ export type SanityImage = {
   alt?: string;
 };
 
-export type PostListItem = {
-  _id: string;
-  title: string;
-  slug: string;           // ✅ string only
-  mainImage: SanityImage;
-  author: string;         // ✅ "author": author->name
-  categories: string[];   // ✅ strings only
-  publishedAt: string;
-};
+// Add your project types here
 
-export interface PostFull {
-  title: string;
-  mainImage?: { asset?: { url: string }; alt?: string };
-  author?: string;
-  publishedAt?: string;
-  body?: any;
-  categories?: string[];
-  // Add optional navigation fields
-  prevSlug?: string | null;
-  nextSlug?: string | null;
-}
