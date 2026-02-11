@@ -42,3 +42,9 @@ next-env.d.ts
 
 # Blog backups
 ../blog-backup*/
+
+# Blog backups
+../blog-backup*/
+
+# Blog backups
+/blog-backup*/
