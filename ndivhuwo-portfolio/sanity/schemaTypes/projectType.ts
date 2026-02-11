@@ -32,6 +32,7 @@ export default defineType({
     }),
     defineField({
       name: "type",
+      title: "Project Type",
       type: "string",
       options: {
         list: [
@@ -39,12 +40,22 @@ export default defineType({
           { title: "Frontend", value: "frontend" },
           { title: "Backend", value: "backend" },
           { title: "API", value: "api" },
+
+          { title: "Web Application", value: "webapp" },
+          { title: "Console Application", value: "consoleapp" },
+          { title: "Desktop Application", value: "desktopapp" },
+
+          { title: "Algorithms & Logic", value: "algorithms" },
+          { title: "Game / Simulation", value: "game" },
+
           { title: "Power Platform", value: "powerplatform" },
-          { title: "Desktop App", value: "desktopapp" },
-          { title: "Web App", value: "webapp" },
+          { title: "Internal System", value: "internalsystem" },
+
+          { title: "AI / Intelligent Systems", value: "ai" }
         ],
       }
     }),
+
     defineField({
       name: "demoLink",
       type: "url",

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 // ✅ Local image imports
 import schoolImg from "@/public/media/journey/school.jpg";
@@ -28,8 +28,8 @@ interface TimelineItem {
   year: string;
   title: string;
   desc: string;
-  img: any;
-  badges?: { img: any; label: string }[];
+  img: StaticImageData;
+  badges?: { img: StaticImageData; label: string }[];
 }
 
 const timeline: TimelineItem[] = [
@@ -89,7 +89,7 @@ export default function Timeline() {
   return (
     <section className="relative py-20 max-w-5xl mx-auto px-4 md:px-0 text-center">
       <h2 className="text-3xl font-semibold text-primary tracking-tight">
-        My journey to becoming a Fullstack Developer
+        My journey into Software & Cloud Development
       </h2>
 
       {/* Separator */}
@@ -97,21 +97,21 @@ export default function Timeline() {
 
       {/* Timeline */}
       <div className="relative z-10">
-        {/* vertical line container */}
+        {/* vertical line */}
         <div
           className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-1 bg-primary/30 rounded-full"
           style={{ top: 0, bottom: 0 }}
         />
 
         {timeline.map((item, i) => (
-          <div key={i} className="relative">
+          <div key={i} className="relative mb-12 last:mb-0">
             {/* Timeline Card */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="relative flex flex-col md:flex-row items-center md:items-start gap-6 mb-12 last:mb-0"
+              className="relative flex flex-col md:flex-row items-center md:items-start gap-6"
             >
               {/* Dot */}
               <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-background shadow-md"></div>
@@ -151,31 +151,33 @@ export default function Timeline() {
 
             {/* Badge Row */}
             {item.badges && item.badges.length > 0 && (
-              <div className="relative flex overflow-x-auto gap-4 py-4 mb-12 px-6 md:px-0 rounded-lg 
-                              bg-background border border-purple-400 dark:border-purple-600
-                              shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1
-                              justify-center">
-                {item.badges.map((badge, j) => (
-                  <div
-                    key={j}
-                    className="flex-shrink-0 w-32 sm:w-40 bg-white rounded-lg shadow-md p-2 flex flex-col items-center gap-2 cursor-default transition-transform duration-300 hover:scale-105"
-                  >
-                    <div className="relative h-16 w-16">
-                      <Image
-                        src={badge.img}
-                        alt={badge.label}
-                        fill
-                        className="object-contain"
-                      />
+              <div className="relative mt-4">
+                <div className="overflow-x-auto px-2 sm:px-6 py-4 flex gap-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary/60 scrollbar-track-transparent">
+                  {item.badges.map((badge, j) => (
+                    <div
+                      key={j}
+                      className="flex-shrink-0 w-28 sm:w-32 md:w-36 bg-white dark:bg-card rounded-lg shadow-md p-2 flex flex-col items-center gap-2 snap-center transition-transform duration-300 hover:scale-105 cursor-default"
+                    >
+                      <div className="relative h-14 w-14 sm:h-16 sm:w-16">
+                        <Image
+                          src={badge.img}
+                          alt={badge.label}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center">
+                        {badge.label}
+                      </p>
                     </div>
-                    <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 text-center">
-                      {badge.label}
-                    </p>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                {/* Optional swipe hint on mobile */}
+                <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-muted-foreground md:hidden">
+                  swipe →
+                </span>
               </div>
             )}
-
           </div>
         ))}
       </div>
