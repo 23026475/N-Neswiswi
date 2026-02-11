@@ -24,8 +24,6 @@ This project serves as a centralized hub for my work as a **Junior Software Deve
 
 ## 🏃 Getting Started
 
-## 🏃 Getting Started
-
 ### 1. Clone the repository
 ```
 git clone [https://github.com/23026475/N-Neswiswi.git](https://github.com/23026475/N-Neswiswi.git)
@@ -44,3 +42,4 @@ npm run dev
 npm run build
 npm start
 ```
+
