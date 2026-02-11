@@ -11,6 +11,8 @@ const sections = [
 
 export default function SideNav() {
   const [active, setActive] = useState("hero");
+  const [isVisible, setIsVisible] = useState(true);
+  let lastScrollY = 0;
 
   // IntersectionObserver to update active section
   useEffect(() => {
@@ -22,7 +24,7 @@ export default function SideNav() {
           }
         });
       },
-      { threshold: 0.3 } // lower threshold for better detection
+      { threshold: 0.3 }
     );
 
     sections.forEach((section) => {
@@ -31,6 +33,22 @@ export default function SideNav() {
     });
 
     return () => observer.disconnect();
+  }, []);
+
+  // Hide on scroll down, show on scroll up (for better UX on mobile)
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false); // Scrolling down - hide
+      } else {
+        setIsVisible(true); // Scrolling up - show
+      }
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const renderLinks = (isVertical = true, showLabels = true) =>
@@ -46,34 +64,60 @@ export default function SideNav() {
           ${isVertical ? "flex-col" : "flex-row"}`}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
+        onClick={(e) => {
+          e.preventDefault();
+          document.getElementById(s.id)?.scrollIntoView({ 
+            behavior: 'smooth' 
+          });
+        }}
       >
-        <span className="text-lg">{s.emoji}</span>
-        {showLabels && <span className={isVertical ? "mt-1" : "ml-1"}>{s.label}</span>}
+        <span className="text-lg sm:text-xl">{s.emoji}</span>
+        {showLabels && <span className={isVertical ? "mt-1 text-xs sm:text-sm" : "ml-1"}>{s.label}</span>}
       </motion.a>
     ));
 
   return (
-    <>
-      {/* Desktop Nav - vertical, icons + labels */}
-      <nav className="hidden lg:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 
-                      flex-col gap-4 items-center p-4 rounded-2xl 
-                      bg-gray-100/30 dark:bg-gray-900/30 backdrop-blur-md border border-white/20 shadow-lg">
-        {renderLinks(true, true)}
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ 
+        y: isVisible ? 0 : 100, 
+        opacity: isVisible ? 1 : 0 
+      }}
+      transition={{ duration: 0.3 }}
+      className="fixed bottom-6 left-0 right-0 z-50 px-4 flex justify-center md:hidden"
+    >
+      {/* Mobile Nav - Bottom navigation bar (more thumb-friendly) */}
+      <nav className="flex items-center justify-around max-w-md w-full 
+                      bg-gray-100/80 dark:bg-gray-900/80 backdrop-blur-xl 
+                      border border-white/30 dark:border-white/10
+                      shadow-2xl rounded-full px-2 py-2">
+        {sections.map((s) => (
+          <motion.a
+            key={s.id}
+            href={`#${s.id}`}
+            className={`flex flex-col items-center px-3 py-1.5 rounded-full transition-all
+              ${active === s.id
+                ? "bg-gradient-to-r from-primary/20 to-purple-500/20 text-primary"
+                : "text-muted-foreground hover:text-primary"
+              }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById(s.id)?.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }}
+          >
+            <span className="text-xl sm:text-2xl">{s.emoji}</span>
+            <span className={`text-[10px] sm:text-xs mt-0.5 font-medium
+              ${active === s.id ? "text-primary" : "text-gray-600 dark:text-gray-400"}`}>
+              {s.label}
+            </span>
+          </motion.a>
+        ))}
       </nav>
-
-      {/* Tablet Nav - vertical, thinner, icons only */}
-      <nav className="hidden md:flex lg:hidden fixed left-2 top-1/2 -translate-y-1/2 z-40 
-                      flex-col gap-3 items-center p-2 rounded-xl 
-                      bg-gray-100/20 dark:bg-gray-900/20 backdrop-blur-md border border-white/10 shadow-md">
-        {renderLinks(true, false)}
-      </nav>
-
-      {/* Mobile Nav - horizontal, icons only, under navbar */}
-      <nav className="flex md:hidden fixed top-16 left-0 right-0 z-50 
-                      bg-gray-100/30 dark:bg-gray-900/30 backdrop-blur-md border-t border-white/20
-                      shadow-md px-4 py-2 justify-around">
-        {renderLinks(false, false)}
-      </nav>
-    </>
+    </motion.div>
   );
 }
