@@ -2,15 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link"; // ✅ Import Link
+import Link from "next/link";
 import { motion } from "framer-motion";
-import SubtleBackground from "@/components/SubtleBackground";
+import { HeroContainer, fadeInUp, scaleIn, buttonVariants } from "@/components/HeroBase";
 
-export default function HeroSection() {
-  // Typing animation logic
+export default function HomeHero() {
   const roles = [
-    "I am a Full Stack Developer.",
-    "I am a Power Platform Solution Architect.",
+    "Junior Software Developer",
+    "Backend & Power Platform Developer",
   ];
 
   const [roleText, setRoleText] = useState("");
@@ -43,91 +42,127 @@ export default function HeroSection() {
   }, [charIndex, isDeleting, roleIndex, roles]);
 
   return (
-    <section className="relative w-full min-h-[90vh] flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 py-12 sm:py-16 overflow-hidden mb-24">
-      {/* Subtle Background */}
-      <motion.div
-        className="absolute inset-0 z-0 opacity-50 dark:opacity-20"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      >
-        <SubtleBackground />
-      </motion.div>
+    <HeroContainer>
+      <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 xl:gap-20">
+        {/* Left Column - Content */}
+        <div className="flex-1 text-center lg:text-left space-y-6 lg:space-y-8">
+          {/* Profile Image - Centered on mobile, hidden on large */}
+          <motion.div 
+            {...scaleIn}
+            className="lg:hidden flex justify-center mb-4"
+          >
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden shadow-2xl ring-4 ring-purple-500/30">
+              <Image
+                src="/media/murals/me.png"
+                alt="Ndivhuwo"
+                fill
+                className="object-cover object-top"
+                priority
+                sizes="160px"
+              />
+            </div>
+          </motion.div>
 
-      {/* Glass effect overlay */}
-      <div className="absolute inset-2 sm:inset-4 z-10 border border-white/20 dark:border-white/10 rounded-3xl backdrop-blur-md bg-white/5 dark:bg-black/5 shadow-2xl"></div>
+          {/* Heading */}
+          <motion.h1 
+            {...fadeInUp}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white"
+          >
+            Hi, I’m <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">Ndivhuwo.</span>
+          </motion.h1>
 
-      {/* Hero Content */}
-      <div className="relative z-20 flex flex-col items-center w-full max-w-6xl mx-auto text-center gap-10 sm:gap-12 py-8 sm:py-10">
-        {/* Profile Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-2xl border-4 border-purple-500/50"
-        >
-          <Image
-            src="/media/murals/me.png"
-            alt="Ndivhuwo"
-            fill
-            className="object-cover object-top"
-            priority
-            sizes="(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 25vw"
-          />
-        </motion.div>
+          {/* Typing line - Updated title */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold min-h-[40px] sm:min-h-[50px]"
+          >
+            <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+              {roleText}
+            </span>
+            <span className="inline-block w-0.5 h-6 sm:h-8 bg-purple-600 dark:bg-purple-400 animate-pulse ml-1 align-middle">
+              &nbsp;
+            </span>
+          </motion.div>
 
-        {/* Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight"
-        >
-          Hi, I’m <span className="text-primary">Ndivhuwo.</span>
-        </motion.h1>
+          {/* Updated Description - Honest and transparent */}
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl lg:max-w-xl mx-auto lg:mx-0"
+          >
+            Junior Software Developer specializing in backend systems and Power Platform solutions. 
+            I build APIs and full-stack applications using <span className="font-semibold text-primary">C#</span>,{' '}
+            <span className="font-semibold text-primary">Java</span>,{' '}
+            <span className="font-semibold text-primary">SQL Server</span>, and{' '}
+            <span className="font-semibold text-primary">React</span> — focused on clean architecture 
+            and practical problem-solving.
+          </motion.p>
 
-        {/* Typing line */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="text-lg sm:text-2xl md:text-3xl font-semibold text-purple-600 dark:text-purple-400 min-h-[32px] sm:min-h-[40px] md:min-h-[50px]"
-        >
-          {roleText}
-          <span className="inline-block w-1 bg-purple-600 dark:bg-purple-400 animate-blink ml-1">
-            &nbsp;
-          </span>
-        </motion.div>
+          {/* Tech stack badges - Visual reinforcement */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="flex flex-wrap justify-center lg:justify-start gap-2 pt-2"
+          >
+            {["C#", "Java", "SQL Server", "React", "Power Platform"].map((tech) => (
+              <span 
+                key={tech}
+                className="px-3 py-1 text-xs sm:text-sm bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full border border-gray-200 dark:border-gray-700"
+              >
+                {tech}
+              </span>
+            ))}
+          </motion.div>
 
-        {/* Description & Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="max-w-3xl space-y-6 px-4 sm:px-0"
-        >
-          <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
-            I craft clean, <strong>scalable</strong>, and <strong>maintainable</strong> software
-            solutions. Specializing in secure, high-performance backend services and APIs that power
-            delightful user experiences.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+          {/* Buttons */}
+          <motion.div 
+            {...buttonVariants}
+            className="flex flex-col sm:flex-row gap-4 pt-6 justify-center lg:justify-start"
+          >
             <Link
-              href="/projects" // ✅ Real page navigation
-              className="px-6 sm:px-8 py-3 bg-purple-600 text-white font-semibold text-base sm:text-lg rounded-xl shadow-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-[1.02] border-2 border-transparent"
+              href="/projects"
+              className="px-8 py-3 bg-gradient-to-r from-primary to-purple-600 text-white font-semibold text-base sm:text-lg rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-transparent"
             >
               🚀 View Projects
             </Link>
             <Link
-              href="/contact" // ✅ Real page navigation
-              className="px-6 sm:px-8 py-3 bg-transparent text-gray-900 dark:text-white font-semibold text-base sm:text-lg rounded-xl border-2 border-purple-600 dark:border-purple-400 hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-[1.02]"
+              href="/contact"
+              className="px-8 py-3 bg-transparent text-gray-900 dark:text-white font-semibold text-base sm:text-lg rounded-full border-2 border-purple-600 dark:border-purple-400 hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105"
             >
-              Get in Touch
+              📫 Get in Touch
             </Link>
+          </motion.div>
+        </div>
+
+        {/* Right Column - Profile Image (Desktop only) */}
+        <motion.div 
+          {...scaleIn}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="hidden lg:block flex-1"
+        >
+          <div className="relative w-full max-w-md mx-auto aspect-square">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-full blur-3xl"></div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="relative w-full h-full rounded-full overflow-hidden shadow-2xl ring-4 ring-purple-500/30"
+            >
+              <Image
+                src="/media/murals/me.png"
+                alt="Ndivhuwo"
+                fill
+                className="object-cover object-top"
+                priority
+                sizes="(max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
           </div>
         </motion.div>
       </div>
-    </section>
+    </HeroContainer>
   );
 }
