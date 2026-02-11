@@ -23,6 +23,7 @@ import sc900 from "@/public/media/certs/sc900.png";
 import adaptit from "@/public/media/certs/adaptit.png";
 import girlcodeHack from "@/public/media/certs/girlcode_hack.png";
 import retrorabbit from "@/public/media/certs/retrorabit.png";
+import pl600 from "@/public/media/certs/pl600.png";
 
 interface TimelineItem {
   year: string;
@@ -63,25 +64,38 @@ const timeline: TimelineItem[] = [
       { img: girlcodeHack, label: "GirlCode Hackathon" },
       { img: az900, label: "AZ-900" },
       { img: ai900, label: "AI-900" },
-      { img: sc900, label: "SC-900" },
+      
     ],
   },
   {
-    year: "2025–Present",
+    year: "2025 Jan – May",
     title: "💼 Mint Group Internship",
-    desc: "Now contributing to real-world projects as a System Developer Intern. Building Power Apps, Power Automate workflows, and cloud-based solutions within agile teams.",
+    desc: "Worked on internal software solutions within Microsoft environments, building Power Platform applications and automation workflows while collaborating in Agile teams.",
+    img: mintgroupImg,
+    badges: [
+      { img: sc900, label: "SC-900" },
+      
+    ],
+  },
+  {
+    year: "2025 June–Present",
+    title: "💼 Mint Group Junior Software Developer",
+    desc: "Contributing to client-facing digital transformation projects, building Power Platform solutions and supporting backend integrations while working closely with stakeholders.",
     img: mintgroupImg,
     badges: [
       { img: dp900, label: "DP-900" },
       { img: pl900, label: "PL-900" },
       { img: pl200, label: "PL-200" },
+      { img: dp900, label: "DP-900" },
+      { img: pl600, label: "PL-600" }
+      
     ],
   },
   {
     year: "Future",
     title: "🚀 Vision Ahead",
-    desc: "Continuing to learn, explore, and innovate. Aspiring to become a full-fledged Software Developer who builds scalable, meaningful, cloud-powered applications.",
-    img: futureImg,
+    desc: "Committed to mastering scalable backend systems, cloud architecture, and building meaningful software that solves real-world problems."
+,    img: futureImg,
   },
 ];
 
